@@ -1,2 +1,2 @@
 # RockPaperScissors
-Console Rock Paper Scissors | 3rd TOP Project
+Console Rock Paper Scissors | TOP 3rd Project
