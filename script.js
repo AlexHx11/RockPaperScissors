@@ -48,13 +48,37 @@ function playRound(playerChoice, computerChoice) {
     return result;
 }
 
+function updateScore(result, score) {
+    playerScoreIndex = 0;
+    computerScoreIndex = 1;
 
+    switch (result) {
+        case "win":
+            score[playerScoreIndex]++
+            break;
+        case "lose":
+            score[computerScoreIndex]++
+            break;
+        case "tie":
+            break;
+    }
+
+    return score;
+}
+
+
+let score = [0, 0]; // [Player Score, Computer Score]
 for (let i = 0; i < 5; i++) {
     let playerChoice, computerChoice;
     playerChoice = getPlayerChoice();
     computerChoice = getComputerChoice();
+
     let result = playRound(playerChoice, computerChoice);
-    console.log(result);
-    console.log(playerChoice);
-    console.log(computerChoice);
+
+    score = updateScore(result, score)
+    
+    console.log(`Result: ${result}`);
+    console.log(`You chose: ${playerChoice}`);
+    console.log(`Computer chose: ${computerChoice}`);
+    console.log(`Score: ${score}`)
 }
