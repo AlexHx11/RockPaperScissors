@@ -66,6 +66,13 @@ function updateScore(result, currScore) {
     return currScore;
 }
 
+function displayGame(result, playerChoice, computerChoice, score) {
+    console.log(`Result: ${result}`);
+    console.log(`You chose: ${playerChoice}`);
+    console.log(`Computer chose: ${computerChoice}`);
+    console.log(`Score: ${score[0]}-${score[1]}`);
+}
+
 function playGame() {
     let score = [0, 0]; // [Player Score, Computer Score]
     let playerChoice, computerChoice;
@@ -77,13 +84,9 @@ function playGame() {
         computerChoice = getComputerChoice();
 
         result = playRound(playerChoice, computerChoice);
-
         score = updateScore(result, score);
 
-        console.log(`Result: ${result}`);
-        console.log(`You chose: ${playerChoice}`);
-        console.log(`Computer chose: ${computerChoice}`);
-        console.log(`Score: ${score[0]}-${score[1]}`);
+        displayGame(result, playerChoice, computerChoice, score);
     }
 
     if (score[0] == score[1]) {
@@ -93,13 +96,9 @@ function playGame() {
             computerChoice = getComputerChoice();
 
             result = playRound(playerChoice, computerChoice);
-
             score = updateScore(result, score);
 
-            console.log(`Result: ${result}`);
-            console.log(`You chose: ${playerChoice}`);
-            console.log(`Computer chose: ${computerChoice}`);
-            console.log(`Score: ${score[0]}-${score[1]}`);
+            displayGame(result, playerChoice, computerChoice, score);
         }
     }
 }
