@@ -48,37 +48,62 @@ function playRound(playerChoice, computerChoice) {
     return result;
 }
 
-function updateScore(result, score) {
+function updateScore(result, currScore) {
     playerScoreIndex = 0;
     computerScoreIndex = 1;
 
     switch (result) {
         case "win":
-            score[playerScoreIndex]++
+            currScore[playerScoreIndex]++
             break;
         case "lose":
-            score[computerScoreIndex]++
+            currScore[computerScoreIndex]++
             break;
         case "tie":
             break;
     }
 
-    return score;
+    return currScore;
 }
 
-
-let score = [0, 0]; // [Player Score, Computer Score]
-for (let i = 0; i < 5; i++) {
+function playGame() {
+    let score = [0, 0]; // [Player Score, Computer Score]
     let playerChoice, computerChoice;
-    playerChoice = getPlayerChoice();
-    computerChoice = getComputerChoice();
+    let result;
+    let numberOfRounds;
 
-    let result = playRound(playerChoice, computerChoice);
+    for (let i = 0; i < numberOfRounds; i++) {
+        playerChoice = getPlayerChoice();
+        computerChoice = getComputerChoice();
 
-    score = updateScore(result, score)
-    
-    console.log(`Result: ${result}`);
-    console.log(`You chose: ${playerChoice}`);
-    console.log(`Computer chose: ${computerChoice}`);
-    console.log(`Score: ${score}`)
+        result = playRound(playerChoice, computerChoice);
+
+        score = updateScore(result, score);
+
+        console.log(`Result: ${result}`);
+        console.log(`You chose: ${playerChoice}`);
+        console.log(`Computer chose: ${computerChoice}`);
+        console.log(`Score: ${score[0]}-${score[1]}`);
+    }
+
+    if (score[0] == score[1]) {
+        console.log("TIE BREAKERRRRR!!!")
+        while (score[0] == score[1]) {
+            playerChoice = getPlayerChoice();
+            computerChoice = getComputerChoice();
+
+            result = playRound(playerChoice, computerChoice);
+
+            score = updateScore(result, score);
+
+            console.log(`Result: ${result}`);
+            console.log(`You chose: ${playerChoice}`);
+            console.log(`Computer chose: ${computerChoice}`);
+            console.log(`Score: ${score[0]}-${score[1]}`);
+        }
+    }
 }
+
+playGame()
+
+
