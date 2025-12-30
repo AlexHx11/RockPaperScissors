@@ -27,7 +27,7 @@ function getPlayerChoice() {
     return choice;
 }
   
-function playRound(playerChoice, computerChoice) {
+function getResultOfRound(playerChoice, computerChoice) {
     let result;
 
     switch (playerChoice) {
@@ -72,32 +72,28 @@ function displayGame(result, playerChoice, computerChoice, score) {
     console.log(`Score: ${score[0]}-${score[1]}`);
 }
 
+function playRound(score) {
+    let playerChoice = getPlayerChoice();
+    let computerChoice = getComputerChoice();
+
+    let result = getResultOfRound(playerChoice, computerChoice);
+    score = updateScore(result, score);
+
+    displayGame(result, playerChoice, computerChoice, score);
+}
+
 function playGame() {
-    let score = [0, 0]; // [Player Score, Computer Score]
-    let playerChoice, computerChoice;
-    let result;
+    let currScore = [0, 0]; // [Player Score, Computer Score]
     let numberOfRounds = 5;
 
     for (let i = 0; i < numberOfRounds; i++) {
-        playerChoice = getPlayerChoice();
-        computerChoice = getComputerChoice();
-
-        result = playRound(playerChoice, computerChoice);
-        score = updateScore(result, score);
-
-        displayGame(result, playerChoice, computerChoice, score);
+        playRound(currScore);
     }
 
-    if (score[0] == score[1]) {
+    if (score[playerScoreIndex] == score[computerScoreIndex]) {
         console.log("TIE BREAKERRRRR!!!")
         while (score[playerScoreIndex] == score[computerScoreIndex]) {
-            playerChoice = getPlayerChoice();
-            computerChoice = getComputerChoice();
-
-            result = playRound(playerChoice, computerChoice);
-            score = updateScore(result, score);
-
-            displayGame(result, playerChoice, computerChoice, score);
+            playRound(currScore);
         }
     }
 
