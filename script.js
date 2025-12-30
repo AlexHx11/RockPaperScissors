@@ -16,13 +16,18 @@ function getComputerChoice() {
         case 3:
             choice = "scissors"
             break;
-        default:
-            choice = "hello"
     }
 
     return choice;
 }
+
+function getPlayerChoice() {
+    let choice = prompt("Please choose rock, paper, or scissors:").toLowerCase();
+
+    return choice;
+}
   
-for (let i = 0; i < 100; i++) {
-    console.log(getComputerChoice())
+
+for (let i = 0; i < 5; i++) {
+    console.log(getPlayerChoice())
 }
