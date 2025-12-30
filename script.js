@@ -4,7 +4,7 @@ function getRandomInt(min, max) {
 
 function getComputerChoice() {
     let int = getRandomInt(1,3);
-    let choice = null;
+    let choice;
 
     switch (int) {
         case 1: 
@@ -27,7 +27,34 @@ function getPlayerChoice() {
     return choice;
 }
   
+function playRound(playerChoice, computerChoice) {
+    let result;
+
+    switch (playerChoice) {
+        case computerChoice:
+            result = "tie"
+            break;
+        case "rock":
+            computerChoice == "scissors" ? result = "win" : result = "lose"
+            break;
+        case "paper":
+            computerChoice == "rock" ? result = "win" : result = "lose"
+            break;
+        case "scissors":
+            computerChoice == "paper" ? result = "win" : result = "lose"
+            break;
+    }
+
+    return result;
+}
+
 
 for (let i = 0; i < 5; i++) {
-    console.log(getPlayerChoice())
+    let playerChoice, computerChoice;
+    playerChoice = getPlayerChoice();
+    computerChoice = getComputerChoice();
+    let result = playRound(playerChoice, computerChoice);
+    console.log(result);
+    console.log(playerChoice);
+    console.log(computerChoice);
 }
