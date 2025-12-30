@@ -48,10 +48,9 @@ function playRound(playerChoice, computerChoice) {
     return result;
 }
 
+let playerScoreIndex = 0;
+let computerScoreIndex = 1;
 function updateScore(result, currScore) {
-    playerScoreIndex = 0;
-    computerScoreIndex = 1;
-
     switch (result) {
         case "win":
             currScore[playerScoreIndex]++
@@ -77,7 +76,7 @@ function playGame() {
     let score = [0, 0]; // [Player Score, Computer Score]
     let playerChoice, computerChoice;
     let result;
-    let numberOfRounds;
+    let numberOfRounds = 5;
 
     for (let i = 0; i < numberOfRounds; i++) {
         playerChoice = getPlayerChoice();
@@ -91,7 +90,7 @@ function playGame() {
 
     if (score[0] == score[1]) {
         console.log("TIE BREAKERRRRR!!!")
-        while (score[0] == score[1]) {
+        while (score[playerScoreIndex] == score[computerScoreIndex]) {
             playerChoice = getPlayerChoice();
             computerChoice = getComputerChoice();
 
@@ -100,6 +99,12 @@ function playGame() {
 
             displayGame(result, playerChoice, computerChoice, score);
         }
+    }
+
+    if (score[playerScoreIndex] > score[computerScoreIndex]) {
+        console.log("You've won!!!!!");
+    } else if (score[playerScoreIndex] > score[computerScoreIndex]) {
+        console.log("You suck");
     }
 }
 
