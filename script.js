@@ -90,16 +90,16 @@ function playGame() {
         playRound(currScore);
     }
 
-    if (score[playerScoreIndex] == score[computerScoreIndex]) {
+    if (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
         console.log("TIE BREAKERRRRR!!!")
-        while (score[playerScoreIndex] == score[computerScoreIndex]) {
+        while (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
             playRound(currScore);
         }
     }
 
-    if (score[playerScoreIndex] > score[computerScoreIndex]) {
+    if (currScore[playerScoreIndex] > currScore[computerScoreIndex]) {
         console.log("You've won!!!!!");
-    } else if (score[playerScoreIndex] > score[computerScoreIndex]) {
+    } else if (currScore[playerScoreIndex] < currScore[computerScoreIndex]) {
         console.log("You suck");
     }
 }
