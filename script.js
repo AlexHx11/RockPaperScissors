@@ -85,11 +85,25 @@ function playRound(event, score) {
     displayGame(result, playerChoice, computerChoice, score);
 }
 
+function playAndCheckRound(event, score, roundInfo, wrapper) {
+    roundInfo.roundsPlayed += 1;
+
+    if (roundInfo.roundsPlayed >= roundInfo.maxRounds) {
+        choiceContainer.removeEventListener("click", wrapper);
+    }
+
+    playRound(event, score);
+}
+
 function playGame() {
     let currScore = [0, 0]; // [Player Score, Computer Score]
-    let numberOfRounds = 5;
+    let roundInfo = {
+        roundsPlayed: 0,
+        maxRounds: 5,
+    };
 
-    choiceContainer.addEventListener("click", (event) => {playRound(event, currScore)});
+    let wrapper = (event) => playAndCheckRound(event, currScore, roundInfo, wrapper)
+    choiceContainer.addEventListener("click", wrapper);
     
     // for (let i = 0; i < numberOfRounds; i++) {
     //     playRound(currScore);
@@ -108,5 +122,4 @@ function playGame() {
     //     console.log("You suck");
     // }
 }
-
 
