@@ -1,3 +1,11 @@
+// Selectors
+let choiceContainer = document.querySelector('.choice-container')
+
+let playGameButton = document.querySelector('#play-game')
+playGameButton.addEventListener("click", playGame)
+
+//------------------------------------------------------------
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -17,12 +25,6 @@ function getComputerChoice() {
             choice = "scissors"
             break;
     }
-
-    return choice;
-}
-
-function getPlayerChoice() {
-    let choice = prompt("Please choose rock, paper, or scissors:").toLowerCase();
 
     return choice;
 }
@@ -48,9 +50,10 @@ function getResultOfRound(playerChoice, computerChoice) {
     return result;
 }
 
-let playerScoreIndex = 0;
-let computerScoreIndex = 1;
 function updateScore(result, currScore) {
+    const playerScoreIndex = 0;
+    const computerScoreIndex = 1;
+
     switch (result) {
         case "win":
             currScore[playerScoreIndex]++
@@ -72,8 +75,8 @@ function displayGame(result, playerChoice, computerChoice, score) {
     console.log(`Score: ${score[0]}-${score[1]}`);
 }
 
-function playRound(score) {
-    let playerChoice = getPlayerChoice();
+function playRound(event, score) {
+    let playerChoice = event.target.id;
     let computerChoice = getComputerChoice();
 
     let result = getResultOfRound(playerChoice, computerChoice);
@@ -86,24 +89,24 @@ function playGame() {
     let currScore = [0, 0]; // [Player Score, Computer Score]
     let numberOfRounds = 5;
 
-    for (let i = 0; i < numberOfRounds; i++) {
-        playRound(currScore);
-    }
+    choiceContainer.addEventListener("click", (event) => {playRound(event, currScore)});
+    
+    // for (let i = 0; i < numberOfRounds; i++) {
+    //     playRound(currScore);
+    // }
 
-    if (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
-        console.log("TIE BREAKERRRRR!!!")
-        while (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
-            playRound(currScore);
-        }
-    }
+    // if (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
+    //     console.log("TIE BREAKERRRRR!!!")
+    //     while (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
+    //         playRound(currScore);
+    //     }
+    // }
 
-    if (currScore[playerScoreIndex] > currScore[computerScoreIndex]) {
-        console.log("You've won!!!!!");
-    } else if (currScore[playerScoreIndex] < currScore[computerScoreIndex]) {
-        console.log("You suck");
-    }
+    // if (currScore[playerScoreIndex] > currScore[computerScoreIndex]) {
+    //     console.log("You've won!!!!!");
+    // } else if (currScore[playerScoreIndex] < currScore[computerScoreIndex]) {
+    //     console.log("You suck");
+    // }
 }
-
-playGame()
 
 
