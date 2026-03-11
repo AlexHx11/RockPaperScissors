@@ -1,16 +1,28 @@
-// Selectors
-let choiceContainer = document.querySelector('.choice-container')
+let gameState = {
+    isGameSet: false,
+    currScore: [0, 0], // [Player Score, Computer Score]
+    roundsPlayed: 0,
+    maxRounds: 5
+}
 
-let playGameButton = document.querySelector('#play-game')
-playGameButton.addEventListener("click", playGame)
+function main() {
+    const playButton = document.getElementById("play-game")
+    playButton.addEventListener("click", playGame)
+}
 
-//------------------------------------------------------------
+function getPlayerChoice() {
+    return new Promise(resolve => {
+        document.getElementById("rock").addEventListener("click", () => resolve("rock"), { once: true })
+        document.getElementById("paper").addEventListener("click", () => resolve("paper"), { once: true })
+        document.getElementById("scissors").addEventListener("click", () => resolve("scissors"), { once: true })
+    })
+}
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getComputerChoice() {
+function getComputerChoice() { 
     let int = getRandomInt(1,3);
     let choice;
 
@@ -51,15 +63,13 @@ function getResultOfRound(playerChoice, computerChoice) {
 }
 
 function updateScore(result, currScore) {
-    const playerScoreIndex = 0;
-    const computerScoreIndex = 1;
 
     switch (result) {
         case "win":
-            currScore[playerScoreIndex]++
+            gameState.currScore[0]++
             break;
         case "lose":
-            currScore[computerScoreIndex]++
+            gameState[gameState.currScore[1]]++
             break;
         case "tie":
             break;
@@ -69,57 +79,84 @@ function updateScore(result, currScore) {
 }
 
 function displayGame(result, playerChoice, computerChoice, score) {
-    console.log(`Result: ${result}`);
+    document.getElementById("score").textContent = `${score[0]} - ${score[1]}`;
     console.log(`You chose: ${playerChoice}`);
     console.log(`Computer chose: ${computerChoice}`);
     console.log(`Score: ${score[0]}-${score[1]}`);
 }
 
-function playRound(event, score) {
-    let playerChoice = event.target.id;
-    let computerChoice = getComputerChoice();
-
+function playRound(score, playerChoice, computerChoice) {
+    
     let result = getResultOfRound(playerChoice, computerChoice);
     score = updateScore(result, score);
 
     displayGame(result, playerChoice, computerChoice, score);
 }
 
-function playAndCheckRound(event, score, roundInfo, wrapper) {
-    roundInfo.roundsPlayed += 1;
+function setGameScreen() {
 
-    if (roundInfo.roundsPlayed >= roundInfo.maxRounds) {
-        choiceContainer.removeEventListener("click", wrapper);
+    if (!gameState.isGameSet) {
+        const gameScreen = document.createElement("div")
+
+        const score = document.createElement("h2")
+        score.id = "score"
+        score.textContent = "0 - 0"
+        gameScreen.append(score)
+        const gameResult = document.createElement("h4")
+        gameResult.id = "game-result"
+        gameResult.textContent = ". . ."
+        gameScreen.append(gameResult)
+
+        const rockButton = document.createElement("button")
+        rockButton.textContent = "rock"
+        rockButton.id = "rock"
+        const paperButton = document.createElement("button")
+        paperButton.textContent = "paper"
+        paperButton.id = "paper"
+        const scissorsButton = document.createElement("button")
+        scissorsButton.textContent = "scissors"
+        scissorsButton.id = "scissors"
+        gameScreen.append(rockButton, paperButton, scissorsButton)
+
+        document.body.firstElementChild.after(gameScreen)   
+        gameState.isGameSet = true
     }
 
-    playRound(event, score);
+    if (gameState.isGameSet) {
+        document.getElementById("score").textContent = "0 - 0"
+        document.getElementById("game-result").textContent = ". . ."
+    }
+        
 }
 
-function playGame() {
-    let currScore = [0, 0]; // [Player Score, Computer Score]
-    let roundInfo = {
-        roundsPlayed: 0,
-        maxRounds: 5,
-    };
-
-    let wrapper = (event) => playAndCheckRound(event, currScore, roundInfo, wrapper)
-    choiceContainer.addEventListener("click", wrapper);
+async function playGame() {
     
-    // for (let i = 0; i < numberOfRounds; i++) {
-    //     playRound(currScore);
-    // }
+    setGameScreen()
 
-    // if (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
-    //     console.log("TIE BREAKERRRRR!!!")
-    //     while (currScore[playerScoreIndex] == currScore[computerScoreIndex]) {
-    //         playRound(currScore);
-    //     }
-    // }
+    while (gameState.roundsPlayed < gameState.maxRounds) {
+        let playerChoice = await getPlayerChoice();
+        let computerChoice = getComputerChoice();
 
-    // if (currScore[playerScoreIndex] > currScore[computerScoreIndex]) {
-    //     console.log("You've won!!!!!");
-    // } else if (currScore[playerScoreIndex] < currScore[computerScoreIndex]) {
-    //     console.log("You suck");
-    // }
+        playRound(gameState.currScore, playerChoice, computerChoice)
+        gameState.roundsPlayed += 1
+    }
+
+    if (gameState.currScore[0] == gameState.currScore[1]) {
+        console.log("TIE BREAKERRRRR!!!")
+        while (gameState.currScore[0] == gameState.currScore[1]) {
+            let playerChoice = await getPlayerChoice();
+            let computerChoice = getComputerChoice();
+
+            playRound(playerChoice, computerChoice, currScore);
+        }
+    }
+
+    if (gameState.currScore[0] > gameState.currScore[1]) {
+        console.log("You've won!!!!!");
+    } else if (gameState.currScore[0] < gameState.currScore[1]) {
+        console.log("You suck");
+    }
+    
 }
 
+main()
