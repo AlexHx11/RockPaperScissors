@@ -78,7 +78,7 @@ function updateScore(result, currScore) {
     return currScore;
 }
 
-function displayGame(result, playerChoice, computerChoice, score) {
+function displayGame(playerChoice, computerChoice, score) {
     document.getElementById("score").textContent = `${score[0]} - ${score[1]}`;
     document.getElementById("player-choice").textContent = `Your Choice: ${playerChoice}`;
     document.getElementById("computer-choice").textContent = `Computer Choice: ${computerChoice}`;
@@ -89,7 +89,7 @@ function playRound(score, playerChoice, computerChoice) {
     let result = getResultOfRound(playerChoice, computerChoice);
     score = updateScore(result, score);
 
-    displayGame(result, playerChoice, computerChoice, score);
+    displayGame(playerChoice, computerChoice, score);
 }
 
 function setGameScreen() {
