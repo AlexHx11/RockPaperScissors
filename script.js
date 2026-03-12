@@ -69,7 +69,7 @@ function updateScore(result, currScore) {
             gameState.currScore[0]++
             break;
         case "lose":
-            gameState[gameState.currScore[1]]++
+            gameState.currScore[1]++
             break;
         case "tie":
             break;
@@ -80,9 +80,8 @@ function updateScore(result, currScore) {
 
 function displayGame(result, playerChoice, computerChoice, score) {
     document.getElementById("score").textContent = `${score[0]} - ${score[1]}`;
-    console.log(`You chose: ${playerChoice}`);
-    console.log(`Computer chose: ${computerChoice}`);
-    console.log(`Score: ${score[0]}-${score[1]}`);
+    document.getElementById("player-choice").textContent = `Your Choice: ${playerChoice}`;
+    document.getElementById("computer-choice").textContent = `Computer Choice: ${computerChoice}`;
 }
 
 function playRound(score, playerChoice, computerChoice) {
@@ -102,6 +101,15 @@ function setGameScreen() {
         score.id = "score"
         score.textContent = "0 - 0"
         gameScreen.append(score)
+
+        const playerChoiceText = document.createElement("p")
+        playerChoiceText.id = "player-choice"
+        playerChoiceText.textContent = "Your Choice: "
+        const computerChoiceText = document.createElement("p")
+        computerChoiceText.id = "computer-choice"
+        computerChoiceText.textContent = "Computer Choice: "
+        gameScreen.append(playerChoiceText, computerChoiceText)
+
         const gameResult = document.createElement("h4")
         gameResult.id = "game-result"
         gameResult.textContent = ". . ."
@@ -124,13 +132,21 @@ function setGameScreen() {
 
     if (gameState.isGameSet) {
         document.getElementById("score").textContent = "0 - 0"
+        document.getElementById("player-choice").textContent = "Your Choice:"
+        document.getElementById("computer-choice").textContent = "Computer Choice:"
         document.getElementById("game-result").textContent = ". . ."
     }
         
 }
 
+function resetGame() {
+    gameState.currScore = [0,0]
+    gameState.roundsPlayed = 0
+}
+
 async function playGame() {
     
+    resetGame()
     setGameScreen()
 
     while (gameState.roundsPlayed < gameState.maxRounds) {
@@ -141,20 +157,21 @@ async function playGame() {
         gameState.roundsPlayed += 1
     }
 
+    let resultDisplay = document.getElementById("game-result")
     if (gameState.currScore[0] == gameState.currScore[1]) {
-        console.log("TIE BREAKERRRRR!!!")
+        resultDisplay.textContent = "TIE BREAKERRRR!!!!"
         while (gameState.currScore[0] == gameState.currScore[1]) {
             let playerChoice = await getPlayerChoice();
             let computerChoice = getComputerChoice();
 
-            playRound(playerChoice, computerChoice, currScore);
+            playRound(gameState.currScore, playerChoice, computerChoice);
         }
     }
 
     if (gameState.currScore[0] > gameState.currScore[1]) {
-        console.log("You've won!!!!!");
+        resultDisplay.textContent = "You've won!";
     } else if (gameState.currScore[0] < gameState.currScore[1]) {
-        console.log("You suck");
+        resultDisplay.textContent = "You suck";
     }
     
 }
