@@ -6,8 +6,12 @@ let gameState = {
 }
 
 function main() {
-    const playButton = document.getElementById("play-game")
+    const playButton = document.createElement("button")
+    playButton.id = "play-game"
+    playButton.textContent = "Play"
     playButton.addEventListener("click", playGame)
+
+    document.body.append(playButton)
 }
 
 function getPlayerChoice() {
@@ -145,7 +149,10 @@ function resetGame() {
 }
 
 async function playGame() {
-    
+
+    const playButton = document.getElementById("play-game")
+    playButton.remove()
+    playButton.textContent = "Play Again"
     resetGame()
     setGameScreen()
 
@@ -173,6 +180,8 @@ async function playGame() {
     } else if (gameState.currScore[0] < gameState.currScore[1]) {
         resultDisplay.textContent = "You suck";
     }
+
+    document.body.append(playButton)
     
 }
 
