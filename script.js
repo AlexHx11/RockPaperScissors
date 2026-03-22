@@ -100,6 +100,7 @@ function setGameScreen() {
 
     if (!gameState.isGameSet) {
         const gameScreen = document.createElement("div")
+        gameScreen.id = "game-screen"
 
         const score = document.createElement("h2")
         score.id = "score"
@@ -119,16 +120,22 @@ function setGameScreen() {
         gameResult.textContent = ". . ."
         gameScreen.append(gameResult)
 
-        const rockButton = document.createElement("button")
-        rockButton.textContent = "rock"
+        const buttons = document.createElement("div")
+        buttons.id = "buttons"
+        const rockButton = document.createElement("div")
+        const rockIcon = document.createElement("img")
+        rockButton.textContent = "ROCK"
         rockButton.id = "rock"
-        const paperButton = document.createElement("button")
-        paperButton.textContent = "paper"
+        const paperButton = document.createElement("div")
+        const paperIcon = document.createElement("img")
+        paperButton.textContent = "PAPER"
         paperButton.id = "paper"
-        const scissorsButton = document.createElement("button")
-        scissorsButton.textContent = "scissors"
+        const scissorsButton = document.createElement("div")
+        const scissorsIcon = document.createElement("img")
+        scissorsButton.textContent = "SCISSORS"
         scissorsButton.id = "scissors"
-        gameScreen.append(rockButton, paperButton, scissorsButton)
+        buttons.append(rockButton, paperButton, scissorsButton)
+        gameScreen.append(buttons)
 
         document.body.firstElementChild.after(gameScreen)   
         gameState.isGameSet = true

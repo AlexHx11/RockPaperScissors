@@ -1,4 +1,42 @@
 * {
-    background-color: #f8f4fa;
-    color: #454545;
+    background-color: #1d1f29;
+    color: #dde2fa;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title {
+    flex: 1;
+    margin: 0.5em;
+}
+
+#play-game {
+    flex: 1;
+    padding: 0.5em 1.5em;
+    font-size: 16px;
+
+}
+
+#game-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-screen * {
+    margin: 1em;
+}
+
+#buttons * {
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    background: none;
+    box-shadow: none;
+    border: 1px solid white;
 }
