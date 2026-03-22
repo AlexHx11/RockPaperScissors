@@ -14,17 +14,19 @@ body {
 #title {
     flex: 1;
     margin: 0.5em;
+    margin-top: 1em;
 }
 
 #play-game {
+    margin-top: 8em;
     flex: 1;
-    padding: 0.5em 1.5em;
-    font-size: 16px;
+    padding: 1em 3em;
+    font-size: 20px;
 
     background: none;
     box-shadow: none;
     border: 1.5px solid white;
-    border-radius: 7px;
+    border-radius: 15px;
 
 }
 
