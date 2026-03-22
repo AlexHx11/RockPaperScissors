@@ -120,20 +120,28 @@ function setGameScreen() {
         gameResult.textContent = ". . ."
         gameScreen.append(gameResult)
 
+
         const buttons = document.createElement("div")
         buttons.id = "buttons"
-        const rockButton = document.createElement("div")
+
+        const rockButton = document.createElement("btn")
         const rockIcon = document.createElement("img")
-        rockButton.textContent = "ROCK"
+        rockIcon.src = "icons/rock.jpg"
+        rockButton.append(rockIcon)
         rockButton.id = "rock"
-        const paperButton = document.createElement("div")
+
+        const paperButton = document.createElement("btn")
         const paperIcon = document.createElement("img")
-        paperButton.textContent = "PAPER"
+        paperIcon.src = "icons/paper.jpg"
+        paperButton.append(paperIcon)
         paperButton.id = "paper"
-        const scissorsButton = document.createElement("div")
+
+        const scissorsButton = document.createElement("btn")
         const scissorsIcon = document.createElement("img")
-        scissorsButton.textContent = "SCISSORS"
+        scissorsIcon.src = "icons/scissors.jpg"
+        scissorsButton.append(scissorsIcon)
         scissorsButton.id = "scissors"
+
         buttons.append(rockButton, paperButton, scissorsButton)
         gameScreen.append(buttons)
 
