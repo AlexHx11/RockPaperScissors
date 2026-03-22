@@ -8,7 +8,7 @@ let gameState = {
 function main() {
     const playButton = document.createElement("button")
     playButton.id = "play-game"
-    playButton.textContent = "Play"
+    playButton.textContent = "PLAY"
     playButton.addEventListener("click", playGame)
 
     document.body.append(playButton)
