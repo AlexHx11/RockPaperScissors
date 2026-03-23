@@ -168,6 +168,7 @@ async function playGame() {
     const playButton = document.getElementById("play-game")
     playButton.remove()
     playButton.textContent = "Play Again"
+    playButton.style.marginTop = "1em"
     resetGame()
     setGameScreen()
 
