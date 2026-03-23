@@ -70,10 +70,10 @@ function updateScore(result, currScore) {
 
     switch (result) {
         case "win":
-            gameState.currScore[0]++
+            gameState.currScore[0]++;
             break;
         case "lose":
-            gameState.currScore[1]++
+            gameState.currScore[1]++;
             break;
         case "tie":
             break;
